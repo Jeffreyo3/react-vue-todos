@@ -2,18 +2,10 @@
   <div id="app">
     <VueHeader message="Welcome to your VueJS Todos App" />
 
-    <form v-on:submit.prevent @submit="handleSubmit">
-      <label htmlFor="newTodo">New Todo </label>
-      <input
-        id="newTodo"
-        name="newTodo"
-        v-model="state.formValue"
-        type="text"
-      />
-      <button type="submit">Add</button>
-    </form>
+    <TodoForm v-bind:handleSubmit="handleSubmit" v-bind:todos="state.todos" />
+
     <button v-on:click="deleteCompleted">Clear Completed</button>
-    <ul>
+    <!-- <ul>
       <li
         v-on:click="toggleComplete"
         v-bind:id="item.id"
@@ -24,32 +16,36 @@
         {{ item.name }}
         <button v-bind:id="item.id" v-on:click="deleteTodo">X</button>
       </li>
-    </ul>
+    </ul> -->
+
+    <TodoList
+      v-bind:todos="todos"
+      v-bind:toggleComplete="toggleComplete"
+      v-bind:deleteTodo="deleteTodo"
+    />
   </div>
 </template>
 
 <script>
 import VueHeader from "./components/VueHeader.vue";
+import TodoForm from "./components/TodoForm.vue";
+import TodoList from "./components/TodoList.vue";
+
 import dummyData from "./dummyData.json";
 
 export default {
   name: "App",
-  components: { VueHeader },
+  components: { VueHeader, TodoForm, TodoList },
   data: function() {
     return {
       state: {
         todos: dummyData,
-        formValue: "",
       },
     };
   },
   methods: {
-    handleSubmit: function() {
-      const newTodo = {
-        id: this.state.todos[this.state.todos.length - 1].id + 1,
-        name: this.state.formValue,
-        completed: false,
-      };
+    handleSubmit: function(newTodo) {
+      console.log(newTodo);
       this.state.todos.push(newTodo);
     },
     toggleComplete: function(event) {
