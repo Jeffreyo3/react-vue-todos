@@ -1,0 +1,6 @@
+[
+    {"id":1,"name":"Laundry", "completed":true},
+    {"id":2,"name":"Fold clean clothes", "completed":false},
+    {"id":3,"name":"Take out the trash", "completed":false},
+    {"id":4,"name":"Take a nap", "completed":false}
+]
