@@ -18,6 +18,12 @@ export default {
     handleSubmit: {
       type: Function,
     },
+    nextId: {
+      type: Number,
+    },
+    incrementId: {
+      type: Function,
+    },
   },
   data: function() {
     return {
@@ -29,12 +35,13 @@ export default {
   methods: {
     addTodo: function() {
       const newTodo = {
-        id: this.$props.todos[this.$props.todos.length - 1].id + 1,
+        id: this.$props.nextId,
         name: this.state.formValue,
         completed: false,
       };
       this.handleSubmit(newTodo);
       this.state.formValue = "";
+      this.$props.incrementId();
     },
   },
 };

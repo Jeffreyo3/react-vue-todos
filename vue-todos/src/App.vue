@@ -5,6 +5,8 @@
     <TodoForm
       v-bind:handleSubmit="handleSubmit"
       v-bind:todos="this.state.todos"
+      v-bind:nextId="this.state.nextId"
+      v-bind:incrementId="this.incrementId"
     />
 
     <button v-on:click="deleteCompleted">Clear Completed</button>
@@ -31,17 +33,21 @@ export default {
     return {
       state: {
         todos: dummyData,
+        nextId: dummyData.length + 1,
       },
     };
   },
   methods: {
+    incrementId: function() {
+      this.state.nextId++;
+    },
     handleSubmit: function(newTodo) {
       console.log(newTodo);
       this.state.todos.push(newTodo);
     },
     toggleComplete: function(event) {
       this.state.todos = this.state.todos.map((item) => {
-        if (Number(event.target.id) === item.id) {
+        if (Number(event.target.getAttribute("name")) === item.id) {
           return { ...item, completed: !item.completed };
         } else return item;
       });
@@ -51,7 +57,7 @@ export default {
     },
     deleteTodo: function(event) {
       this.state.todos = this.state.todos.filter(
-        (item) => item.id !== Number(event.target.id)
+        (item) => item.id !== Number(event.target.name)
       );
     },
   },
@@ -67,22 +73,5 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  user-select: none;
-}
-
-li:hover {
-  cursor: pointer;
-}
-
-.completed {
-  text-decoration: line-through;
 }
 </style>

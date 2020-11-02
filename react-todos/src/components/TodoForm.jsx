@@ -2,7 +2,7 @@ import { useState } from "react";
 
 export default function TodoForm(props) {
   const [formValue, setFormValue] = useState("");
-  const { todos, setTodos } = props;
+  const { todos, setTodos, incrementId, nextId } = props;
   function handleChange(event) {
     setFormValue(event.target.value);
   }
@@ -10,12 +10,13 @@ export default function TodoForm(props) {
   function handleSubmit(event) {
     event.preventDefault();
     const newTodo = {
-      id: todos[todos.length - 1].id + 1,
+      id: nextId,
       name: formValue,
       completed: false,
     };
     setTodos([...todos, newTodo]);
     setFormValue("");
+    incrementId();
   }
 
   return (
@@ -28,7 +29,7 @@ export default function TodoForm(props) {
         onChange={handleChange}
         type="text"
       />
-      <button type="submit">Add</button>
+      <button type="submit" disabled={formValue.length < 1}>Add</button>
     </form>
   );
 }

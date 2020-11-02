@@ -7,10 +7,15 @@ import dummyData from "./dummyData.json";
 
 function App() {
   const [todos, setTodos] = useState(dummyData);
+  const [nextId, setNextId] = useState(dummyData.length+1);
+
+  function incrementId () {
+    setNextId(nextId+1)
+  }
 
   function toggleComplete(event) {
     const updateCompleted = todos.map((item) => {
-      if (Number(event.target.id) === item.id) {
+      if (Number(event.target.getAttribute('name')) === item.id) {
         return { ...item, completed: !item.completed };
       } else return item;
     });
@@ -25,7 +30,7 @@ function App() {
   function deleteTodo(event) {
     event.stopPropagation();
     const removeDeleted = todos.filter((item) => {
-      return item.id !== Number(event.target.id);
+      return item.id !== Number(event.target.name);
     });
     setTodos(removeDeleted);
   }
@@ -34,7 +39,7 @@ function App() {
     <div id="app">
       <ReactHeader message={"Welcome to your ReactJS Todos App"} />
 
-      <TodoForm todos={todos} setTodos={setTodos} />
+      <TodoForm todos={todos} setTodos={setTodos} incrementId={incrementId} nextId={nextId}/>
 
       <button onClick={deleteCompleted}>Clear Completed</button>
 

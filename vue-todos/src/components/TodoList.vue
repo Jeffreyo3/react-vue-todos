@@ -47,4 +47,11 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0 auto;
+  width: 30rem;
+}
+</style>
