@@ -10,6 +10,7 @@
       {{ item.name }}
       <button v-bind:id="item.id" v-on:click="deleteClick">X</button>
     </li>
+    <!-- <li>{{props}}</li> -->
   </ul>
 </template>
 
@@ -28,16 +29,18 @@ export default {
     },
   },
   data: function() {
-      return {}
+    return {
+        props: "yeah"
+    };
   },
   methods: {
-      toggle: function(event) {
-          this.$props.toggleComplete(event)
-      },
-      deleteClick: function(event) {
-          this.$props.deleteTodo(event)
-      }
-  }
+    toggle: function(event) {
+      this.$props.toggleComplete(event);
+    },
+    deleteClick: function(event) {
+      this.$props.deleteTodo(event);
+    },
+  },
 };
 </script>
 

@@ -2,26 +2,17 @@
   <div id="app">
     <VueHeader message="Welcome to your VueJS Todos App" />
 
-    <TodoForm v-bind:handleSubmit="handleSubmit" v-bind:todos="state.todos" />
+    <TodoForm
+      v-bind:handleSubmit="handleSubmit"
+      v-bind:todos="this.state.todos"
+    />
 
     <button v-on:click="deleteCompleted">Clear Completed</button>
-    <!-- <ul>
-      <li
-        v-on:click="toggleComplete"
-        v-bind:id="item.id"
-        v-bind:key="item.id"
-        v-for="item of state.todos"
-        v-bind:class="item.completed ? 'completed' : null"
-      >
-        {{ item.name }}
-        <button v-bind:id="item.id" v-on:click="deleteTodo">X</button>
-      </li>
-    </ul> -->
 
     <TodoList
-      v-bind:todos="todos"
-      v-bind:toggleComplete="toggleComplete"
-      v-bind:deleteTodo="deleteTodo"
+      v-bind:todos="this.state.todos"
+      v-bind:toggleComplete="this.toggleComplete"
+      v-bind:deleteTodo="this.deleteTodo"
     />
   </div>
 </template>
