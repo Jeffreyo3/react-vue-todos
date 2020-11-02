@@ -7,16 +7,7 @@
       v-for="item in this.$props.todos"
       v-bind:item="item"
     />
-    <!-- <li
-      v-on:click="toggle"
-      v-bind:id="item.id"
-      v-bind:key="item.id"
-      v-for="item in this.$props.todos"
-      v-bind:class="item.completed ? 'completed' : null"
-    >
-      {{ item.name }}
-      <button v-bind:id="item.id" v-on:click="deleteClick">X</button>
-    </li> -->
+
     <!-- <li>{{props}}</li> -->
     <!-- referencing props is different than $props -->
     <!-- props refers to a name/key/var in data and $props references the vue instance -->
