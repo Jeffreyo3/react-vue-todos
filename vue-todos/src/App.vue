@@ -4,10 +4,15 @@
 
     <form v-on:submit.prevent @submit="handleSubmit">
       <label htmlFor="newTodo">New Todo </label>
-      <input id="newTodo" name="newTodo" v-model="state.formValue" />
+      <input
+        id="newTodo"
+        name="newTodo"
+        v-model="state.formValue"
+        type="text"
+      />
       <button type="submit">Add</button>
     </form>
-
+    <button v-on:click="deleteCompleted">Clear Completed</button>
     <ul>
       <li
         v-on:click="toggleComplete"
@@ -17,6 +22,7 @@
         v-bind:class="item.completed ? 'completed' : null"
       >
         {{ item.name }}
+        <button v-bind:id="item.id" v-on:click="deleteTodo">X</button>
       </li>
     </ul>
   </div>
@@ -52,6 +58,14 @@ export default {
           return { ...item, completed: !item.completed };
         } else return item;
       });
+    },
+    deleteCompleted: function() {
+      this.state.todos = this.state.todos.filter((item) => !item.completed);
+    },
+    deleteTodo: function(event) {
+      this.state.todos = this.state.todos.filter(
+        (item) => item.id !== Number(event.target.id)
+      );
     },
   },
 };

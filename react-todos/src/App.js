@@ -29,6 +29,19 @@ function App() {
     setTodos(updateCompleted);
   }
 
+  function deleteCompleted() {
+    const filterDeleted = todos.filter((item) => !item.completed);
+    setTodos(filterDeleted);
+  }
+
+  function deleteTodo(event) {
+    event.stopPropagation();
+    const removeDeleted = todos.filter((item) => {
+      return item.id !== Number(event.target.id);
+    });
+    setTodos(removeDeleted);
+  }
+
   return (
     <div id="app">
       <ReactHeader message={"Welcome to your ReactJS Todos App"} />
@@ -40,10 +53,11 @@ function App() {
           name="newTodo"
           value={formValue}
           onChange={handleChange}
+          type="text"
         />
         <button type="submit">Add</button>
       </form>
-
+      <button onClick={deleteCompleted}>Clear Completed</button>
       <ul>
         {todos.map((item) => (
           <li
@@ -52,7 +66,10 @@ function App() {
             className={item.completed ? "completed" : null}
             onClick={toggleComplete}
           >
-            {item.name}
+            {item.name}{" "}
+            <button id={item.id} onClick={deleteTodo}>
+              X
+            </button>
           </li>
         ))}
       </ul>
